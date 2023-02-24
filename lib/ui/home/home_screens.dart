@@ -19,6 +19,7 @@ class _HomeScreensState extends State<HomeScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('To Do List'),
       ),
@@ -37,13 +38,12 @@ class _HomeScreensState extends State<HomeScreens> {
         notchMargin: 12,
         child: BottomNavigationBar(
           onTap: (index) {
-            currentIndex = index;
-            setState(() {});
+            setState(() {currentIndex = index;});
           },
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: ' '),
-            BottomNavigationBarItem(icon: Icon(Icons.menu), label: ' '),
+                icon: Icon(Icons.menu), label: ' '),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), label: ' '),
           ],
         ),
       ),
