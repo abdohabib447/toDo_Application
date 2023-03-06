@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/provider/provider.dart';
 import 'package:to_do_app/ui/home/home_screens.dart';
-import 'package:to_do_app/ui/home/menue/update_todo.dart';
 import 'package:to_do_app/ui/my_theme_data.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -30,7 +29,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         HomeScreens.routeName: (_) => HomeScreens(),
-        UpdateTodo.routeNAme: (_)=>UpdateTodo(),
       },
       initialRoute: HomeScreens.routeName,
       theme: MyThemeData.lightTheme,

@@ -4,7 +4,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/provider/provider.dart';
 import 'package:to_do_app/ui/constants.dart';
-import 'package:to_do_app/ui/home/menue/update_todo.dart';
 import 'package:to_do_app/ui/item_list_model.dart';
 import 'package:to_do_app/ui/my_theme_data.dart';
 
@@ -40,87 +39,80 @@ class Item extends StatelessWidget {
             ),
           ],
         ),
-        child: GestureDetector(
-          onDoubleTap: (){
-            deleteTodo();
-          },
-          onTap: (){
-            Navigator.pushNamed(context, UpdateTodo.routeNAme,arguments: item.id);
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.13,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-              color: listaProvider.currentMode == ThemeMode.light ? Colors.white :
-              MyThemeData.darkAccent,
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.13,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+            color: listaProvider.isDarkMode() ?  MyThemeData.darkAccent:
+            Colors.white
+           ,
 
-            ),
-            child: Row(
+          ),
+          child: Row(
 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 10,
-                  decoration: BoxDecoration(
-                      color: item.isDone
-                          ? Colors.green
-                          : Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(8)),
+            children: [
+              Container(
+                width: 10,
+                decoration: BoxDecoration(
+                    color: item.isDone
+                        ? Colors.green
+                        : Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.title,
+                      style: item.isDone
+                          ? Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Colors.green)
+                          : Theme.of(context).textTheme.bodyMedium!.copyWith(color: MyThemeData.lightPrimary),
+                    ),
+                    Text(
+                      item.description,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
-                const Spacer(
-                  flex: 1,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.title,
-                        style: item.isDone
-                            ? Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: Colors.green)
-                            : Theme.of(context).textTheme.bodyMedium!.copyWith(color: MyThemeData.lightPrimary),
+              ),
+              const Spacer(
+                flex: 2,
+              ),
+              item.isDone
+                  ? Text(
+                      'Done!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: Colors.green),
+                    )
+                  : ElevatedButton(
+                      style: const ButtonStyle(
+                        shape: MaterialStatePropertyAll(StadiumBorder(
+                            side: BorderSide(
+                                width: 4, color: Colors.transparent))),
                       ),
-                      Text(
-                        item.description,
-                        style: Theme.of(context).textTheme.bodySmall,
+                      onPressed: () {
+                        updatingDatabase();
+                      },
+                      child: const Icon(
+                        Icons.check,
+                        size: 50,
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
-                ),
-                const Spacer(
-                  flex: 2,
-                ),
-                item.isDone
-                    ? Text(
-                        'Done!',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.green),
-                      )
-                    : ElevatedButton(
-                        style: const ButtonStyle(
-                          shape: MaterialStatePropertyAll(StadiumBorder(
-                              side: BorderSide(
-                                  width: 4, color: Colors.transparent))),
-                        ),
-                        onPressed: () {
-                          updatingDatabase();
-                        },
-                        child: const Icon(
-                          Icons.check,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                      ),
-              ],
-            ),
+                    ),
+            ],
           ),
         ),
       ),

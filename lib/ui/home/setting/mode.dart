@@ -28,9 +28,9 @@ class _ModeState extends State<Mode> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Theme.of(context).primaryColor),
-                color: provider.currentMode == ThemeMode.light
-                    ? Colors.white
-                    : MyThemeData.darkAccent,
+                color: provider.isDarkMode()
+                    ?  MyThemeData.darkAccent:
+                Colors.white,
               ),
               child: provider.isDarkMode()
                   ? usSelectedTheme('Light')
@@ -43,9 +43,9 @@ class _ModeState extends State<Mode> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Theme.of(context).primaryColor),
-              color: provider.currentMode == ThemeMode.light
-                  ? Colors.white
-                  : MyThemeData.darkAccent,
+              color: provider.isDarkMode()
+                  ?  MyThemeData.darkAccent:
+              Colors.white,
             ),
             child: InkWell(
               onTap: () {
